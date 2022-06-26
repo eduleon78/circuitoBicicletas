@@ -5,6 +5,17 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap'
 }).addTo(map);
 
-L.marker([10.965409, -63.821345]).addTo(map);
-L.marker([10.959779, -63.818735]).addTo(map);
-L.marker([10.950887, -63.821219]).addTo(map);
+/* L.marker([10.964416, -63.820184]).addTo(map);
+L.marker([10.960645, -63.818875]).addTo(map);
+L.marker([10.950752, -63.820573]).addTo(map); */
+
+$.ajax({
+    dataType: "json",
+    url: "api/bicicletas",
+    success: function(result){
+        console.log(result);
+        result.bicicletas.forEach(function(bici){
+            L.marker(bici.ubicacion, {title: bici.id}).addTo(map);
+        });
+    }
+})
