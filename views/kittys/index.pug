@@ -1,0 +1,29 @@
+extends ../layout
+
+block content 
+  a.btn.btn-success(href='/kittys/create') + Nuevo Usuario
+
+  br
+  br
+
+  table.table 
+    thead 
+      tr 
+        th(scope='col') #
+        th(scope='col') Nombre
+        th(scope='col')
+        th(scope='col')
+    tbody 
+      each kity in kitys 
+        tr 
+          td(scope='row')
+            = kity  
+          td= kity 
+          td
+            a.btn(href= 'kittys/' + kity + '/update') Editar
+          td 
+            form.inline(method='post' action='kittys/' + kitty + '/delete')
+              input(type='hidden' name='code' value='kity')
+              button.link-button.btn-danger(type='submit' name='submit_param' value='submit_value' class='btn')
+                = 'Eliminar' 
+             

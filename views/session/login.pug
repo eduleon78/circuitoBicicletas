@@ -1,0 +1,36 @@
+head 
+link(rel='stylesheet', href='../../stylesheets/style--login.css')
+link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+
+.wrapper
+  .container
+    .form
+      .main-div 
+        .panel 
+        if info && info.message
+          div.alert.alert-danger
+          = info.message
+        h2 Admin Login
+        p Ingrese su email y password
+        form#Login(action='/login' method='post') 
+          .form-group 
+            label(for='login') Usuario 
+            input#username.form-control(type='email' placeholder='Email Address' name='username')
+          .form-group  
+            label.password(for='password') Password
+            input#password.form-control(type='password' placeholder='Password' name='password')
+            button.login-btn(type='submit') Login
+            .forgot
+              | Olvidaste tu password? 
+              a.click(href='/forgotPassword') Click Here
+            .forgot
+              | Necesitas un usuario? 
+              a.click(href='/usuarios/create') Click Here 
+              a.facebook(href='#')
+                span.icon
+                  i.fa.fa-facebook-f
+                | Sign with facebook
+              a.twitter(href='#')
+                span.icon
+                  i.fa.fa-google 
+                | Sign with google 
