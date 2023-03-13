@@ -39,7 +39,7 @@ exports.bicicleta_update_post = function(req, res) {
             console.log(err);
             res.render('bicicleta/update', { errors: err.errors, bicicleta})
         }else{
-            res.redirect('bicicletas');
+            res.redirect('/bicicletas');
             return;
         }
     });

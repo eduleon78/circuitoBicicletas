@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -32,13 +33,13 @@ app.use(session({
   secret: 'redes_bicicletas_!!!***!"+!"+!"+!"+!"+123123'
 }));
 
-// getting-started.js
 var mongoose = require('mongoose');
-  
-var mongoDB = 'mongodb://localhost:27017/cicuito_bicicletas2';
 
-//var mongoDB = process.env.MONGO_URI;
-
+//var mongoDB = 'mongodb+srv://admin:OqdLJADwCTyTLhFV@circuitobike.zvworzo.mongodb.net/?retryWrites=true&w=majority';
+// si estoy en el ambiente de desarrollo usar
+//var mongoDB = 'mongodb://localhost/cicuito_bicicletas2';
+// sino usar
+var mongoDB = process.env.MONGO_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.Promise = global.Promise;
 mongoose.connection.on(
@@ -96,10 +97,12 @@ app.get('/forgotPassword', function(req, res) {
 app.post('/forgotPassword', function(req, res){
   Usuario.findOne({ email: req.body.email }, function (err, usuario){
     if (!usuario) return res.render('session/forgotPassword', {info: {message: 'No existe el email para un usuario existente.'}});
+
     usuario.resetPassword(function(err){
       if (err) return next(err);
       console.log('session/forgotPasswordMessage');
     });
+
     res.render('session/forgotPasswordMessage');
   });
 });
@@ -112,6 +115,7 @@ app.get("/resetPassword/:token", function (req, res, next) {
         type: "not-verified",
         msg: "No existe un usuario asociado al token. Verifique que su token no haya expirado.",
       });
+
     Usuario.findById(token._userId, function (err, usuario) {
       if (!usuario)
         return res.status(400).send({
@@ -124,7 +128,7 @@ app.get("/resetPassword/:token", function (req, res, next) {
 });
 
 app.post('/resetPassword', function(req, res){
-  if(req.body.password != req.body.confirm_password){
+  if (req.body.password != req.body.confirm_password){
     res.render('session/resetPassword', {errors: { confirm_password: { message: 'No coincide el password ingresado'}}, 
     usuario: new Usuario({email: req.body.email})});
     return;
@@ -181,9 +185,9 @@ function validarUsuario(req, res, next){
       res.json({status:"error", message: err.message, data: null});
     }else{
 
-      req.body.userId = decoded.id;
+      req.body.userId = decoded;
 
-      console.log('jwt verify: ' + decoded);
+      console.log('jwt verify: ' + decoded.id);
 
       next();
     }

@@ -34,7 +34,7 @@ module.exports = {
             message: 'No coincide con el password ingresado.', 
           },
         }, 
-        usuario: new Usuario ({
+          usuario: new Usuario ({
           nombre: req.body.nombre, 
           email: req.body.email 
         }),
@@ -64,7 +64,7 @@ module.exports = {
   },
   delete: function (req, res, next) {
     console.log(req.params);
-    Usuario.findByIdAndDelete(req.params.id, (err) => {
+    Usuario.findByIdAndDelete(req.params.id, function(err){
       if (err)
         next(err);
       else
