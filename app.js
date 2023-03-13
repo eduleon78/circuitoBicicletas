@@ -33,7 +33,7 @@ app.use(session({
   secret: 'redes_bicicletas_!!!***!"+!"+!"+!"+!"+123123'
 }));
 
-/* var mongoose = require('mongoose');
+var mongoose = require('mongoose');
 
 //var mongoDB = 'mongodb+srv://admin:OqdLJADwCTyTLhFV@circuitobike.zvworzo.mongodb.net/?retryWrites=true&w=majority';
 // si estoy en el ambiente de desarrollo usar
@@ -41,14 +41,20 @@ app.use(session({
 // sino usar
 var mongoDB = process.env.MONGO_URI;
 
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(mongoDB, { 
+      //useNewUrlParser: true, 
+      //useUnifiedTopology: true,
+      //useFindAndModify: false,
+      //useCreateIndex: true
+    }
+  );
 mongoose.Promise = global.Promise;
 mongoose.connection.on(
   "error",
   console.error.bind(console, "MongoDB connection error: ")
-); */
+);
 
-const mongoose = require('mongoose');
+/* const mongoose = require('mongoose');
 const { schema } = require('./models/reserva');
 
 async function main() {
@@ -56,7 +62,7 @@ async function main() {
   mongoose.model('User', schema);
 
   await mongoose.model('User').findOne();
-}
+} */
 
 /* main().catch(err => console.log(err));
 
